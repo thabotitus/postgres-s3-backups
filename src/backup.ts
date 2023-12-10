@@ -39,15 +39,19 @@ const dumpToFile = async (path: string) => {
 
   await new Promise((resolve, reject) => {
     exec(`pg_dump --dbname=${env.BACKUP_DATABASE_URL} --disable-triggers --verbose --format=tar | gzip > ${path}`, (error, stdout, stderr) => {
-      if (error) {
-        reject({ error: error, stderr: stderr.trimEnd() });
-        return;
-      }
+      // if (error) {
+      //   reject({ error: error, stderr: stderr.trimEnd() });
+      //   return;
+      // }
 
-      if (stderr != "") {
-        reject({ stderr: stderr.trimEnd() });
-        return;
-      }
+      // if (stderr != "") {
+      //   reject({ stderr: stderr.trimEnd() });
+      //   return;
+      // }
+
+      console.log("ERROR", error);
+      console.log("STDOUT", stdout);
+      console.log("STDERR", stderr);
 
       console.log("Backup size:", filesize(statSync(path).size));
 
